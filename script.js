@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS5fCQozIgHMkzAw-FeP1QQvCi-AZQ0e9awWadvgxCL7-pYBjdXn_8E8nnsxvwwGdF615O_NAl77Uhm/pubhtml&output=csv"; 
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS5fCQozIgHMkzAw-FeP1QQvCi-AZQ0e9awWadvgxCL7-pYBjdXn_8E8nnsxvwwGdF615O_NAl77Uhm/pub?output=csv"; 
 
     fetch(sheetURL)
         .then(response => response.text())
