@@ -1,28 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VVP Properties</title>
+    <title>VVP Properties & Furniture</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
 
-    <h2>Select Area:</h2>
-    <select id="areaSelect">
-        <option value="">--Select Area--</option>
-    </select>
+    <header>
+        <h1>🏡 <span class="title"><u>VVP Properties & Furniture</u></span></h1>
+    </header>
 
-    <h2>Select Sale/Rent:</h2>
-    <select id="saleRentSelect" disabled>
-        <option value="">--Select Sale or Rent--</option>
-        <option value="For Sale">For Sale</option>
-        <option value="For Rent">For Rent</option>
-    </select>
+    <section class="selection-box">
+        <h2>Choose Area & Property Type</h2>
+        <p><strong>Sale</strong> (Willing to Purchase)</p>
+        <p><strong>Rent</strong> (Looking for Rental)</p>
+        
+        <div class="dropdowns">
+            <select id="area-select">
+                <option value="">-- Select an Area --</option>
+                <option value="Saat Rasta">Saat Rasta</option>
+                <option value="MIDC Road">MIDC Road</option>
+                <option value="Jule Solapur">Jule Solapur</option>
+                <option value="Vijapur Road">Vijapur Road</option>
+                <option value="Railway Lines">Railway Lines</option>
+            </select>
 
-    <div class="property-container" id="propertyList"></div>
+            <select id="type-select" disabled>
+                <option value="">-- Select Sale or Rent --</option>
+                <option value="For Sale">For Sale</option>
+                <option value="For Rent">For Rent</option>
+            </select>
+        </div>
+    </section>
 
-    <script src="script.js"></script>  
+    <!-- Property Listings -->
+    <section id="propertyList" class="property-list"></section>
+
+    <!-- Property Image Carousel -->
+    <div class="carousel" id="carousel">
+        <button class="close-btn" onclick="closeCarousel()">×</button>
+        <img id="carousel-image" src="" alt="Property Image">
+        <div class="carousel-buttons">
+            <button onclick="prevImage()">❮</button>
+            <button onclick="nextImage()">❯</button>
+        </div>
+    </div>
+
+    <section class="contact">
+        <p>✅ <strong>Trusted & Genuine Properties!</strong></p>
+        <p>📞 Contact us for more details:</p>
+        <p>Mr. Vikrant Phatak <strong>9890064107</strong></p>
+    </section>
 
 </body>
-</html>  
+</html>
