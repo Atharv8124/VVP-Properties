@@ -1,54 +1,71 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const areaSelect = document.getElementById("areaSelect");
-    const saleRentSelect = document.getElementById("saleRentSelect");
+    const areaSelect = document.getElementById("area-select");
+    const statusSelect = document.getElementById("type-select");
     const propertyList = document.getElementById("propertyList");
 
-    let properties = [];
+    let propertiesData = [];
 
-    // Fetch property data from JSON file
+    // Load properties from JSON
     fetch("properties.json")
         .then(response => response.json())
         .then(data => {
-            properties = data;
-            populateAreaDropdown();
+            propertiesData = data;
         })
         .catch(error => console.error("Error loading properties:", error));
 
-    function populateAreaDropdown() {
-        const areas = [...new Set(properties.map(p => p.area))];
-        areas.forEach(area => {
-            const option = document.createElement("option");
-            option.value = area;
-            option.textContent = area;
-            areaSelect.appendChild(option);
+    // Enable type-select when area is chosen
+    areaSelect.addEventListener("change", function () {
+        statusSelect.disabled = false;
+        propertyList.innerHTML = "";
+    });
+
+    // Event listener for status selection
+    statusSelect.addEventListener("change", function () {
+        displayProperties();
+    });
+
+    // Function to display filtered properties
+    function displayProperties() {
+        const selectedArea = areaSelect.value;
+        const selectedStatus = statusSelect.value;
+        propertyList.innerHTML = "";
+
+        const filteredProperties = propertiesData.filter(property =>
+            property.area === selectedArea && property.status === selectedStatus
+        );
+
+        if (filteredProperties.length === 0) {
+            propertyList.innerHTML = "<p>No properties found.</p>";
+            return;
+        }
+
+        filteredProperties.forEach(property => {
+            let propertyCard = document.createElement("div");
+            propertyCard.classList.add("property-card");
+
+            let imagesHTML = `<div class="image-slider">`;
+            property.images.forEach((img, index) => {
+                imagesHTML += `<img src="${img}" class="property-image ${index === 0 ? 'active' : ''}" alt="Property Image" onclick="openCarousel('${img}')">`;
+            });
+            imagesHTML += `</div>`;
+
+            propertyCard.innerHTML = `
+                <h3>${property.type} - ${property.status}</h3>
+                ${imagesHTML}
+                <p><strong>Price:</strong> ${property.price}</p>
+                <p>${property.description}</p>
+            `;
+            propertyList.appendChild(propertyCard);
         });
     }
-
-    // Enable Sale/Rent dropdown when an area is selected
-    areaSelect.addEventListener("change", function () {
-        saleRentSelect.disabled = !areaSelect.value;
-        propertyList.innerHTML = "";
-    });
-
-    // Display properties based on selected Area & Sale/Rent status
-    saleRentSelect.addEventListener("change", function () {
-        propertyList.innerHTML = "";
-        if (areaSelect.value && saleRentSelect.value) {
-            const filteredProperties = properties.filter(p =>
-                p.area === areaSelect.value && p.status === saleRentSelect.value
-            );
-
-            filteredProperties.forEach(property => {
-                const propertyCard = document.createElement("div");
-                propertyCard.classList.add("property-card");
-                propertyCard.innerHTML = `
-                    <h3>${property.type} - ${property.status}</h3>
-                    <p>Area: ${property.area}</p>
-                    <p>Price: ${property.price}</p>
-                    <img src="${property.image}" alt="Property Image" width="300">
-                `;
-                propertyList.appendChild(propertyCard);
-            });
-        }
-    });
 });
+
+// Function to open and close image carousel
+function openCarousel(imageSrc) {
+    document.getElementById("carousel-image").src = imageSrc;
+    document.getElementById("carousel").style.display = "block";
+}
+
+function closeCarousel() {
+    document.getElementById("carousel").style.display = "none";
+}
