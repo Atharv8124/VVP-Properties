@@ -1,1 +1,23 @@
-
+[
+    {
+        "area": "Saat Rasta",
+        "type": "Bungalow",
+        "status": "For Sale",
+        "price": "₹50,00,000",
+        "image": "images/Bunglow.jpg"
+    },
+    {
+        "area": "MIDC Road",
+        "type": "Flat",
+        "status": "For Rent",
+        "price": "₹15,000/month",
+        "image": "images/flat.jpg"
+    },
+    {
+        "area": "Jule Solapur",
+        "type": "Commercial Shop",
+        "status": "For Sale",
+        "price": "₹30,00,000",
+        "image": "images/shop.jpg"
+    }
+]
